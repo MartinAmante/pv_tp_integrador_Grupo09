@@ -1,3 +1,4 @@
+import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useState, useEffect } from "react";
 
@@ -31,6 +32,14 @@ function ListaCliente() {
         return <CircularProgress />;
     }
     
+    if (error) {
+        return (
+            <Alert severity="error">
+                {error}
+            </Alert>
+        );
+    }
+
     return (
         <>
             <h1>Lista de Clientes</h1>
