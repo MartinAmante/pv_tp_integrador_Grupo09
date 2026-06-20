@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext} from "react";
 import { AdminContext } from "../context/AdminContext";
+
     const Login = () => {
     const navigate = useNavigate();
     const { setAdmin } = useContext(AdminContext);
