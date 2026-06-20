@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "../views/Dashboard";
 import DetalleCliente from "../views/DetalleCliente";
@@ -33,3 +34,48 @@ const AppRoutes = () => {
     );
 };
 export default AppRoutes;
+=======
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App.jsx"
+import Login from "../views/Login.jsx";
+import Dashboard from "../views/Dashboard.jsx";
+import ListaCliente from "../views/ListaCliente.jsx";
+import DetalleCliente from "../views/DetalleCliente.jsx";
+
+
+//import { useState } from 'react'
+//import { createRoot } from 'react-dom/client'
+//import './App.css'
+console.log("App ejecutandose");
+const Rutas = createBrowserRouter ([{
+    path:'/',
+    element:<App/>,
+    children:[
+
+        {
+            path:'dashboard',
+            element:<Dashboard/>,
+        },
+        {
+                
+           path:'login',
+            element:<Login/>,
+
+       },
+
+        {
+            path:'lista',
+            element:<ListaCliente/>,
+        },
+
+        {
+            path:'detalle',
+            element:<DetalleCliente/>,
+        },
+
+
+    ]
+
+}])
+export default Rutas;
+>>>>>>> 358d9640eee09b98a09fdba04c00c1d8ed0b3a4a
