@@ -7,7 +7,6 @@ import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 
 function FormularioCliente({ agregarCliente }) {
-    // 1. Un solo estado para manejar todos los campos del formulario de forma limpia
     const [formData, setFormData] = useState({
         nombre: "",
         apellido: "",
@@ -18,11 +17,10 @@ function FormularioCliente({ agregarCliente }) {
         ciudad: ""
     });
 
-    // Estados para cumplir con el Feedback Visual
+
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [mensajeExito, setMensajeExito] = useState("");
 
-    // Función genérica para actualizar el estado cada vez que el usuario escribe
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -30,11 +28,9 @@ function FormularioCliente({ agregarCliente }) {
         });
     };
 
-    // 2. Lógica de la petición POST
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Estructuramos el objeto tal como FakeStoreAPI lo necesita
         const nuevoCliente = {
             email: formData.email,
             username: formData.usuario,
@@ -45,7 +41,6 @@ function FormularioCliente({ agregarCliente }) {
             },
             address: {
                 city: formData.ciudad,
-                // Agregamos datos genéricos para los campos requeridos por la API que no pedimos
                 street: "Calle Principal", 
                 number: 123,
                 zipcode: "0000"
@@ -62,7 +57,6 @@ function FormularioCliente({ agregarCliente }) {
                 body: JSON.stringify(nuevoCliente)
             });
 
-            // 3. Feedback Visual: Capturar el código exitoso y el ID
             if (respuesta.ok || respuesta.status === 201) {
 
                 const datosRecibidos = await respuesta.json();
@@ -77,7 +71,6 @@ function FormularioCliente({ agregarCliente }) {
                 setMensajeExito(`Cliente creado con éxito. ID asignado: ${datosRecibidos.id}`);
                 setOpenSnackbar(true);
 
-                // Limpiamos el formulario para poder cargar uno nuevo
                 setFormData({
                     nombre: "", apellido: "", email: "", 
                     usuario: "", password: "", telefono: "", ciudad: ""
@@ -88,7 +81,6 @@ function FormularioCliente({ agregarCliente }) {
         }
     };
 
-    // Función para cerrar el aviso temporal
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
     };
@@ -151,7 +143,6 @@ function FormularioCliente({ agregarCliente }) {
                 Registrar Cliente
             </Button>
 
-            {/* Componente Snackbar para la notificación temporal */}
             <Snackbar 
                 open={openSnackbar} 
                 autoHideDuration={6000} 
