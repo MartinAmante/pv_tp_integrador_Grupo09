@@ -1,3 +1,4 @@
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState, useEffect } from "react";
 
 function ListaCliente() {
@@ -26,6 +27,10 @@ function ListaCliente() {
         }
     };
 
+    if (loading) {
+        return <CircularProgress />;
+    }
+    
     return (
         <>
             <h1>Lista de Clientes</h1>
