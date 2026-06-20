@@ -24,16 +24,13 @@ const Dashboard = () => {
     <>
     <Header /*nombre={nombre}
             sector={sector}*//>
-    <Nav />
+    <Nav/>
     <h1>Inicio</h1>;
     <Link to="/login">
     Volver al Login
     </Link>
         <button onClick={irClientes}>
             Ver Clientes
-        </button>
-        <button onClick={cerrarSesion}>
-            Cerrar Sesión
         </button>
     <Footer />
     </>
