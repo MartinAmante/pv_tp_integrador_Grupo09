@@ -1,43 +1,43 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App.jsx"
-import Login from "../views/Login.jsx";
-import Dashboard from "../views/Dashboard.jsx";
-import ListaCliente from "../views/ListaCliente.jsx";
-import DetalleCliente from "../views/DetalleCliente.jsx";
+import Dashboard from "../views/Dashboard";
+import DetalleCliente from "../views/DetalleCliente";
+import ListaCliente from "../views/ListaCliente";
+import Login from "../views/Login";
+import ProtectedRoute from "./ProtectedRoute";
 
+const Rutas = createBrowserRouter([
+    {
+        path: "/",
+        element: <Login />
+    },
+    {
+        path: "/login",
+        element: <Login />
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <ProtectedRoute>
+                <Dashboard />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: "/clientes",
+        element: (
+            <ProtectedRoute>
+                <ListaCliente />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: "/clientes/:id",
+        element: (
+            <ProtectedRoute>
+                <DetalleCliente />
+            </ProtectedRoute>
+        )
+    }
+]);
 
-//import { useState } from 'react'
-//import { createRoot } from 'react-dom/client'
-//import './App.css'
-console.log("App ejecutandose");
-const Rutas = createBrowserRouter ([{
-    path:'/',
-    element:<App/>,
-    children:[
-
-        {
-            path:'dashboard',
-            element:<Dashboard/>,
-        },
-        {
-                
-           path:'login',
-            element:<Login/>,
-
-       },
-
-        {
-            path:'clientes',
-            element:<ListaCliente/>,
-        },
-
-        {
-            path:'detalle',
-            element:<DetalleCliente/>,
-        },
-
-
-    ]
-
-}])
 export default Rutas;

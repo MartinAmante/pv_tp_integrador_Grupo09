@@ -1,4 +1,11 @@
 
+import { useNavigate } from "react-router-dom";
+import Header from "../components/layout/Header";
+import Nav from "../components/layout/Nav";
+import Footer from "../components/layout/Footer";
+import FormularioCliente from "./FormularioCliente";
+
+
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -9,15 +16,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 
 import { useState, useEffect } from "react";
 import { obtenerClientes } from "../services/ServiceClientes";
 
-function ListaCliente() {
+
+const ListaCliente = () => {
+
+    const navigate = useNavigate();
+    const volverInicio = () => {
+        navigate("/dashboard");
+    }
 
     const [clientes, setClientes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [busqueda, setBusqueda] = useState("");
 
     useEffect(() => {
 
@@ -44,6 +59,19 @@ function ListaCliente() {
 
     }, []);
 
+    const agregarNuevoCliente = (nuevoCliente) => {
+        setClientes([...clientes, nuevoCliente]);
+    };
+
+    const clientesFiltrados = clientes.filter((cliente) => {
+        const apellido = cliente.name?.lastname?.toLowerCase() || "";
+        const ciudad = cliente.address?.city?.toLowerCase() || "";
+        
+        const buscar = busqueda.toLowerCase().trim();
+
+        return apellido.includes(buscar) || ciudad.includes(buscar);
+    });
+
     if (loading) {
         return <CircularProgress />;
     }
@@ -58,7 +86,18 @@ function ListaCliente() {
 
     return (
         <>
+         <Header  />
+         <Nav />
             <h1>Lista de Clientes</h1>
+
+            <TextField 
+                label="Buscar por apellido o ciudad" 
+                variant="outlined" 
+                fullWidth
+                margin="normal"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+            />
 
             <TableContainer component={Paper}>
                 <Table>
@@ -74,7 +113,7 @@ function ListaCliente() {
                     </TableHead>
 
                     <TableBody>
-                        {clientes.map((cliente) => (
+                        {clientesFiltrados.map((cliente) => (
                             <TableRow key={cliente.id}>
 
                                 <TableCell>
@@ -103,39 +142,15 @@ function ListaCliente() {
 
                 </Table>
             </TableContainer>
-        </>
-    );
-
-/* import { useNavigate } from "react-router-dom";
-import Header from "../components/layout/Header";
-import Nav from "../components/layout/Nav";
-import Footer from "../components/layout/Footer";
-
-const ListaCliente = () => {
-    const navigate = useNavigate();
-    const volverInicio = () => {
-        navigate("/dashboard");
-    }
-    const verCliente = () => {
-        navigate("/clientes/:id");
-    }
-    return (
-        <>
-        <Header //nombre="Matias"
-            //sector="Soporte" 
-             />
-        <Nav />
-        <h1>CLIENTES</h1>
-        <button onClick={volverInicio}>
+             <>
+         <button onClick={volverInicio}>
             Volver al inicio
-        </button>
-        <button onClick={verCliente}>
-            Ver Cliente
-        </button>
-        <Footer />
+         </button>
+         <FormularioCliente agregarCliente={agregarNuevoCliente} />
+         <Footer />
+         </>
         </>
-    ) */
-    
+    );  
 }
 
 export default ListaCliente;
