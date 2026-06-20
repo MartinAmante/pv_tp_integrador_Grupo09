@@ -1,10 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
+import { AdminProvider } from './context/AdminContext.jsx';
 
 createRoot(document.getElementById('root')).render(
+  <AdminProvider>
   <StrictMode>
     <App />
-  </StrictMode>, 
+  </StrictMode>
+  </AdminProvider>
   
 );
