@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Nav from "../components/layout/Nav";
 import Footer from "../components/layout/Footer";
+import FormularioCliente from "./FormularioCliente";
 
 
 import Alert from "@mui/material/Alert";
@@ -20,7 +21,7 @@ import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 
 
-function ListaCliente() {
+const ListaCliente = () => {
 
     const navigate = useNavigate();
     const volverInicio = () => {
@@ -52,10 +53,15 @@ function ListaCliente() {
         }
     };
 
+    const agregarNuevoCliente = (nuevoCliente) => {
+        setClientes([...clientes, nuevoCliente]);
+    };
+
     const clientesFiltrados = clientes.filter((cliente) => {
-        const apellido = cliente.name.lastname.toLowerCase();
-        const ciudad = cliente.address.city.toLowerCase();
-        const buscar = busqueda.toLowerCase();
+        const apellido = cliente.name?.lastname?.toLowerCase() || "";
+        const ciudad = cliente.address?.city?.toLowerCase() || "";
+        
+        const buscar = busqueda.toLowerCase().trim();
 
         return apellido.includes(buscar) || ciudad.includes(buscar);
     });
@@ -134,6 +140,7 @@ function ListaCliente() {
          <button onClick={volverInicio}>
             Volver al inicio
          </button>
+         <FormularioCliente agregarCliente={agregarNuevoCliente} />
          <Footer />
          </>
         </>
