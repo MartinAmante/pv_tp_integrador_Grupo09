@@ -13,8 +13,9 @@ const ListaCliente = () => {
     }
     return (
         <>
-        <Header nombre="Matias"
-            sector="Soporte"/>
+        <Header //nombre="Matias"
+            //sector="Soporte" 
+             />
         <Nav />
         <h1>CLIENTES</h1>
         <button onClick={volverInicio}>
