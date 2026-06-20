@@ -27,7 +27,7 @@ const Rutas = createBrowserRouter ([{
        },
 
         {
-            path:'lista',
+            path:'clientes',
             element:<ListaCliente/>,
         },
 
