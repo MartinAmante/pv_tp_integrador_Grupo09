@@ -1,15 +1,11 @@
-import { Outlet } from "react-router-dom";
-import { useState } from 'react'
-import { createRoot } from 'react-dom/client'
+import AppRoutes from "./routes/Routes";
 
-const App = () => {
+const App = () => { 
     console.log("App ejecutandose");
     return (
-        <div>
-            <h1>Trabajo Práctico Integrador</h1>
-            <Outlet/>
-        </div>
+        <AppRoutes/>
+        //<h1>Trabajo Práctico Integrador</h1>
     );
-}
+};
 
-export default App
+export default App;

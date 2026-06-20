@@ -32,9 +32,6 @@ const Dashboard = () => {
         <button onClick={irClientes}>
             Ver Clientes
         </button>
-        <button>
-            Configuración
-        </button>
         <button onClick={cerrarSesion}>
             Cerrar Sesión
         </button>
