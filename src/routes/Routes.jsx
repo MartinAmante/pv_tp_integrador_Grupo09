@@ -32,7 +32,7 @@ const Rutas = createBrowserRouter ([{
         },
 
         {
-            path:'detalle',
+            path:'detalle/:id',
             element:<DetalleCliente/>,
         },
 
