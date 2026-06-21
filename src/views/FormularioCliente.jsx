@@ -6,7 +6,11 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 
-function FormularioCliente({ agregarCliente }) {
+const FormularioCliente = ({ agregarCliente }) => {
+
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [mensajeExito, setMensajeExito] = useState("");
+
     const [formData, setFormData] = useState({
         nombre: "",
         apellido: "",
@@ -17,9 +21,6 @@ function FormularioCliente({ agregarCliente }) {
         ciudad: ""
     });
 
-
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const [mensajeExito, setMensajeExito] = useState("");
 
     const handleChange = (e) => {
         setFormData({
