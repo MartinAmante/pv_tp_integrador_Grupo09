@@ -27,7 +27,7 @@ const Dashboard = () => {
     <Nav/>
     <h1>Inicio</h1>;
     <Link to="/login">
-    Volver al Login
+        Volver al Login
     </Link>
         <button onClick={irClientes}>
             Ver Clientes

@@ -27,6 +27,11 @@ const ListaCliente = () => {
     const volverInicio = () => {
         navigate("/dashboard");
     }
+    
+    const detalle = (id) =>{
+       navigate("/detalle/"+id);
+    }
+
 
     const [clientes, setClientes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -103,6 +108,7 @@ const ListaCliente = () => {
                             <TableCell>Email</TableCell>
                             <TableCell>Teléfono</TableCell>
                             <TableCell>Ciudad</TableCell>
+                            <TableCell>  </TableCell>
                         </TableRow>
                     </TableHead>
 
@@ -128,6 +134,12 @@ const ListaCliente = () => {
 
                                 <TableCell>
                                     {cliente.address.city}
+                                </TableCell>
+
+                                <TableCell>
+                                    <button onClick={()=>detalle(cliente.id)}>
+                                    boton prueva
+                                    </button>
                                 </TableCell>
 
                             </TableRow>
