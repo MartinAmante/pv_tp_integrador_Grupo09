@@ -69,18 +69,7 @@ const ListaCliente = () => {
     const agregarNuevoCliente = (nuevoCliente) => {
         setClientes([...clientes, nuevoCliente]);
     };
-
     
-    useEffect(() =>{
-        if(idBorrar){
-            setClientes(prev =>
-            prev.filter(cliente => cliente.id !== idBorrar))
-        }
-    },[idBorrar]);
-
-
-
-
     const clientesFiltrados = clientes.filter((cliente) => {
         
         if(cliente.id === idBorrar){

@@ -4,12 +4,13 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
 const VerUsuario = ({ usr }) => {
+    const {name: {firstname, lastname }, username, password, address: {street, number, city, zipcode}} = usr;
     return (
         <Card sx={{ maxWidth: 700, mx: "auto", mt: 2, p: 1 }}>
             <CardContent>
 
                 <Typography variant="h5" gutterBottom>
-                    Cliente: {usr.name.firstname} {usr.name.lastname}
+                    Cliente: {firstname} {lastname}
                 </Typography>
 
                 <Divider sx={{ my: 2 }} />
@@ -19,19 +20,19 @@ const VerUsuario = ({ usr }) => {
                 </Typography>
 
                 <Typography>
-                    Calle: {usr.address.street}
+                    Calle: {street}
                 </Typography>
 
                 <Typography>
-                    Número: {usr.address.number}
+                    Número: {number}
                 </Typography>
 
                 <Typography>
-                    Ciudad: {usr.address.city}
+                    Ciudad: {city}
                 </Typography>
 
                 <Typography>
-                    Código postal: {usr.address.zipcode}
+                    Código postal: {zipcode}
                 </Typography>
 
                 <Divider sx={{ my: 2 }} />
@@ -41,11 +42,11 @@ const VerUsuario = ({ usr }) => {
                 </Typography>
 
                 <Typography>
-                    Usuario: {usr.username}
+                    Usuario: {username}
                 </Typography>
 
                 <Typography>
-                    Contraseña: {usr.password}
+                    Contraseña: {password}
                 </Typography>
 
             </CardContent>
