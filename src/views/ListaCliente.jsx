@@ -82,9 +82,12 @@ const ListaCliente = () => {
 
 
     const clientesFiltrados = clientes.filter((cliente) => {
+        
+        if(cliente.id === idBorrar){
+            return false;
+        }
         const apellido = cliente.name?.lastname?.toLowerCase() || "";
         const ciudad = cliente.address?.city?.toLowerCase() || "";
-        
         const buscar = busqueda.toLowerCase().trim();
 
         return apellido.includes(buscar) || ciudad.includes(buscar);

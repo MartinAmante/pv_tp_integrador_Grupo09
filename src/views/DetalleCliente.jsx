@@ -6,6 +6,7 @@ import Footer from "../components/layout/Footer";
 import VerUsuario from "./VerUsurio.jsx";
 import { AdminContext } from "../context/AdminContext.jsx";
 import {BorrarContext} from "../context/BorrarContext.jsx";
+import {eliminarClienteService} from "../services/ServiceClientes.jsx";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -14,10 +15,16 @@ const DetalleCliente = () => {
     const volverClientes = () => {
         navigate("/clientes");
     }
-    const borrarClientes = (id) =>{
+    const borrarClientes = async (id) =>{
 
-        setIdBorrar(id);
-        navigate("/clientes");
+        try{
+            await eliminarClienteService(id);
+            alert("Cliente eliminado con éxito de la base de datos");
+            setIdBorrar(id); 
+            navigate("/clientes");
+        }catch(error){
+            console.error("Error al eliminar cliente:", error);
+        }
     }
     const {id} = useParams();
     const [usuario,setUsuario] =useState({});
