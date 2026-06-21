@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AdminContext } from "../context/AdminContext";
+import {ServiceAutorizaciones} from "../services/ServiceAutorizaciones";
 import { 
   Container, 
   Box, 
@@ -11,7 +12,9 @@ import {
   InputLabel, 
   Select, 
   MenuItem, 
-  Paper 
+  Paper, 
+  CircularProgress,
+  Alert
 } from "@mui/material";
 
 const Login = () => {
@@ -19,21 +22,27 @@ const Login = () => {
     const { setAdmin } = useContext(AdminContext);
 
     const [nombre, setNombre] = useState("");
+    const [password, setPassword] = useState("");
     const [sector, setSector] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const {login} = useContext(AdminContext);
 
-    const ingresar = () => {
-        if (nombre.trim() === "") {
-            alert("Debe ingresar un nombre");
-            return;
-        }
 
-        if (sector === "") {
-            alert("Debe seleccionar un cargo");
-            return;
+    const manejarLogin = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        try {
+            const respuesta = await ServiceAutorizaciones.loginService(nombre, password, sector); 
+            login(respuesta);  
+            navigate("/dashboard");
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
-        
-        setAdmin({ nombre, sector });
-        navigate("/dashboard");
     };
 
     return (
@@ -41,16 +50,31 @@ const Login = () => {
             <Paper elevation={3} sx={{ p: 4, width: '100%', borderRadius: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 
                 <Typography component="h1" variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: 'primary.main' }}>
-                    LOGIN
+                    INGRESAR
                 </Typography>
 
-                <Box component="div" sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                <Box component="form" onSubmit={manejarLogin} sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                   {error && (
+                        <Alert severity="error">
+                            {error}
+                        </Alert>
+                    )}
+                   
                     <TextField
-                        label="Nombre"
+                        label="Email"
                         variant="outlined"
                         fullWidth
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        label="Contraseña"
+                        variant="outlined"
+                        type="password"
+                        fullWidth
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
 
@@ -69,36 +93,20 @@ const Login = () => {
                     </FormControl>
 
                     <Button
-                        type="button"
+                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         size="large"
-                        onClick={ingresar}
                         sx={{ mt: 1, py: 1.2, fontWeight: 'bold' }}
                     >
-                        Ingresar
+                        {loading ? <CircularProgress size={24} color="inherit" /> : "Ingresar"}
                     </Button>
                 </Box>
             </Paper>
         </Container>
     );
 }
-
-
-
-/*function Login() {
-    console.log("Render Login");
-    return (
-        <>
-            <h1>LOGIN</h1>;
-            <Link to="/dashboard">
-            Ir al Dashboard
-            </Link>
-        </>
-    );
-}*/
-
 
 
 export default Login;
