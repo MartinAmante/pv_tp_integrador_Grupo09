@@ -9,10 +9,10 @@ const VerUsuario = ({usr}) =>{
                     <p>Calle: {usr.address.street}  </p>
                     <p>Numero: {usr.address.number} </p>
                     <p>Ciudad: {usr.address.city}    </p>
-                    <p>Codigo postal: {usr.address.zipcode}    </p>
+                    <p>Codigo postal: {usr.address.zipcode}</p>
                 <h3>credenciales de acceso:  </h3>
                     <p>username: {usr.username} </p>
-                    <p> password:{usr.password}   </p>
+                    <p> password: {usr.password}   </p>
             </div>
        
     </div>
@@ -20,7 +20,3 @@ const VerUsuario = ({usr}) =>{
 
 }
 export default VerUsuario;
-//desestructurar y renderizar de forma ordenada en pantalla la dirección
-//completa del cliente mapeando sus propiedades internas (address.street,
-//address.number, address.zipcode, address.city), además de sus credenciales de
-//acceso de la base de datos (username y password).

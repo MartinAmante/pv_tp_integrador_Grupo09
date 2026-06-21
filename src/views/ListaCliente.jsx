@@ -18,9 +18,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { obtenerClientes } from "../services/ServiceClientes";
-
+import {BorrarContext} from "../context/BorrarContext.jsx";
 
 const ListaCliente = () => {
 
@@ -38,6 +38,7 @@ const ListaCliente = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [busqueda, setBusqueda] = useState("");
+    const {idBorrar} = useContext(BorrarContext);
 
     useEffect(() => {
 
@@ -67,6 +68,17 @@ const ListaCliente = () => {
     const agregarNuevoCliente = (nuevoCliente) => {
         setClientes([...clientes, nuevoCliente]);
     };
+
+    
+    useEffect(() =>{
+        if(idBorrar){
+            setClientes(prev =>
+            prev.filter(cliente => cliente.id !== idBorrar))
+        }
+    },[idBorrar]);
+
+
+
 
     const clientesFiltrados = clientes.filter((cliente) => {
         const apellido = cliente.name?.lastname?.toLowerCase() || "";
