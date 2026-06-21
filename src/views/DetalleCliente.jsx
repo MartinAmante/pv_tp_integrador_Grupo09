@@ -50,7 +50,7 @@ const DetalleCliente = () => {
                     <div>
                     {
                         admin?.sector !== "Soporte"
-                        ? <button onClick={()=>borrarClientes(usuario.id)}>hola papu</button>
+                        ? <button onClick={()=>borrarClientes(usuario.id)}>Eliminar cliente</button>
                         : null
 
                     }

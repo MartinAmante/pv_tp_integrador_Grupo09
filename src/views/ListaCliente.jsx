@@ -156,7 +156,7 @@ const ListaCliente = () => {
 
                                 <TableCell>
                                     <button onClick={()=>detalle(cliente.id)}>
-                                    boton prueva
+                                    ver detalles
                                     </button>
                                 </TableCell>
 
