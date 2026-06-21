@@ -19,6 +19,7 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 
 import { useState, useEffect } from "react";
+import { obtenerClientes } from "../services/ServiceClientes";
 
 
 const ListaCliente = () => {
@@ -39,24 +40,29 @@ const ListaCliente = () => {
     const [busqueda, setBusqueda] = useState("");
 
     useEffect(() => {
-        obtenerClientes();
+
+        const cargarClientes = async () => {
+            try {
+
+                const datos = await obtenerClientes();
+
+                setClientes(datos);
+
+            } catch (error) {
+
+                console.error(error);
+                setError("No se pudieron cargar los clientes");
+
+            } finally {
+
+                setLoading(false);
+
+            }
+        };
+
+        cargarClientes();
+
     }, []);
-
-    const obtenerClientes = async () => {
-        try {
-            const respuesta = await fetch(
-                "https://fakestoreapi.com/users"
-            );
-             const datos = await respuesta.json();
-            setClientes(datos);
-
-        } catch (error) {
-             setError("No se pudieron cargar los clientes");
-
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const agregarNuevoCliente = (nuevoCliente) => {
         setClientes([...clientes, nuevoCliente]);
