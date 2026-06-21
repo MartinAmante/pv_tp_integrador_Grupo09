@@ -9,18 +9,21 @@ import { AdminContext } from "../context/AdminContext";
 import { Container, Box, Typography, Button } from "@mui/material";
 import PeopleIcon from '@mui/icons-material/People';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {BorrarContext} from "../context/BorrarContext.jsx";
 
 const Dashboard = () => {
     const { setAdmin } = useContext(AdminContext);
     const navigate = useNavigate();
-
+    const {setIdBorrar} = useContext(BorrarContext);
     const irClientes = () => {
         navigate("/clientes");
     };
 
     const cerrarSesion = () => {
         setAdmin(null);
+        setIdBorrar(null)
         navigate("/login");
+
     };
 
     console.log("Render Dashboard");

@@ -31,7 +31,7 @@ const Rutas = createBrowserRouter([
         )
     },
     {
-        path: "/clientes/:id",
+        path: "detalle/:id",
         element: (
             <ProtectedRoute>
                 <DetalleCliente />

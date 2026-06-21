@@ -17,10 +17,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { obtenerClientes } from "../services/ServiceClientes";
-
+import {BorrarContext} from "../context/BorrarContext.jsx";
 
 const ListaCliente = () => {
 
@@ -28,11 +29,17 @@ const ListaCliente = () => {
     const volverInicio = () => {
         navigate("/dashboard");
     }
+    
+    const detalle = (id) =>{
+       navigate("/detalle/"+id);
+    }
+
 
     const [clientes, setClientes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [busqueda, setBusqueda] = useState("");
+    const {idBorrar} = useContext(BorrarContext);
 
     useEffect(() => {
 
@@ -62,6 +69,17 @@ const ListaCliente = () => {
     const agregarNuevoCliente = (nuevoCliente) => {
         setClientes([...clientes, nuevoCliente]);
     };
+
+    
+    useEffect(() =>{
+        if(idBorrar){
+            setClientes(prev =>
+            prev.filter(cliente => cliente.id !== idBorrar))
+        }
+    },[idBorrar]);
+
+
+
 
     const clientesFiltrados = clientes.filter((cliente) => {
         const apellido = cliente.name?.lastname?.toLowerCase() || "";
@@ -109,6 +127,7 @@ const ListaCliente = () => {
                             <TableCell>Email</TableCell>
                             <TableCell>Teléfono</TableCell>
                             <TableCell>Ciudad</TableCell>
+                            <TableCell>  </TableCell>
                         </TableRow>
                     </TableHead>
 
@@ -134,6 +153,15 @@ const ListaCliente = () => {
 
                                 <TableCell>
                                     {cliente.address.city}
+                                </TableCell>
+
+                                <TableCell>
+                                    <Button 
+                                        onClick={()=>detalle(cliente.id)}
+                                        variant="text"
+                                    >
+                                    ver detalles
+                                    </Button>
                                 </TableCell>
 
                             </TableRow>

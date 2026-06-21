@@ -4,11 +4,14 @@ import { RouterProvider } from 'react-router-dom';
 import Rutas from "./routes/Routes.jsx"
 import App from './App.jsx'
 import { AdminProvider } from './context/AdminContext.jsx';
+import { BorrarContextProvider } from './context/BorrarContext';
 
 createRoot(document.getElementById('root')).render(
   <AdminProvider>
+  <BorrarContextProvider>  
   <StrictMode>
     <RouterProvider router={Rutas}/>
   </StrictMode>
+  </BorrarContextProvider>
   </AdminProvider>
 );
