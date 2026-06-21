@@ -6,6 +6,8 @@ import Footer from "../components/layout/Footer";
 import VerUsuario from "./VerUsurio.jsx";
 import { AdminContext } from "../context/AdminContext.jsx";
 import {BorrarContext} from "../context/BorrarContext.jsx";
+import Button from "@mui/material/Button";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const DetalleCliente = () => {
     const navigate = useNavigate();
@@ -50,7 +52,12 @@ const DetalleCliente = () => {
                     <div>
                     {
                         admin?.sector !== "Soporte"
-                        ? <button onClick={()=>borrarClientes(usuario.id)}>Eliminar cliente</button>
+                       ?<Button 
+                            onClick={()=>borrarClientes(usuario.id)}
+                            variant="outlined"
+                            startIcon={<DeleteIcon />}  >
+                            Borrar cliente
+                        </Button>
                         : null
 
                     }
@@ -58,10 +65,13 @@ const DetalleCliente = () => {
                 </div>)
 
         }
-        </div> 
-        <button onClick={volverClientes}>
+        </div>
+        <Button 
+            variant="contained" 
+            onClick={volverClientes}>
                 Volver al listado de clientes
-        </button>
+        </Button>
+        
         <Footer />
     </>
     )

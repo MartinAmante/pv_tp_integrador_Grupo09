@@ -17,6 +17,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 import { useState, useEffect,useContext } from "react";
 import { obtenerClientes } from "../services/ServiceClientes";
@@ -155,9 +156,12 @@ const ListaCliente = () => {
                                 </TableCell>
 
                                 <TableCell>
-                                    <button onClick={()=>detalle(cliente.id)}>
+                                    <Button 
+                                        onClick={()=>detalle(cliente.id)}
+                                        variant="text"
+                                    >
                                     ver detalles
-                                    </button>
+                                    </Button>
                                 </TableCell>
 
                             </TableRow>
