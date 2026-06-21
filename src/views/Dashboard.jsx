@@ -5,7 +5,6 @@ import Nav from "../components/layout/Nav";
 import Footer from "../components/layout/Footer";
 import { useContext } from "react";
 import { AdminContext } from "../context/AdminContext";
-// Importamos los componentes de Material UI para la sección central
 import { Container, Box, Typography, Button } from "@mui/material";
 import PeopleIcon from '@mui/icons-material/People';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
