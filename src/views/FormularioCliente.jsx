@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {agregarClienteService} from "../services/ServiceClientes";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -50,33 +51,23 @@ const FormularioCliente = ({ agregarCliente }) => {
         };
 
         try {
-            const respuesta = await fetch("https://fakestoreapi.com/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(nuevoCliente)
-            });
-
-            if (respuesta.ok || respuesta.status === 201) {
-
-                const datosRecibidos = await respuesta.json();
+            const respuesta = await agregarClienteService(nuevoCliente);
 
                 const clienteAInsertar = {
                     ...nuevoCliente,
-                    id: datosRecibidos.id 
+                    id: respuesta.id 
                 };
                 if (agregarCliente) {
                     agregarCliente(clienteAInsertar);
                 }
-                setMensajeExito(`Cliente creado con éxito. ID asignado: ${datosRecibidos.id}`);
+                setMensajeExito(`Cliente creado con éxito. ID asignado: ${respuesta.id}`);
                 setOpenSnackbar(true);
 
                 setFormData({
                     nombre: "", apellido: "", email: "", 
                     usuario: "", password: "", telefono: "", ciudad: ""
                 });
-            }
+
         } catch (error) {
             console.error("Hubo un error en la petición:", error);
         }
