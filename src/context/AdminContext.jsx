@@ -16,8 +16,17 @@ useEffect(() => {
     }
 }, [admin]);
 
+const login = (adminData) => {
+        setAdmin(adminData);
+    };
+
+  
+ const logout = () => {
+        setAdmin(null); 
+    };
+
     return (
-        <AdminContext.Provider value={{admin, setAdmin}}>
+        <AdminContext.Provider value={{admin, setAdmin, login, logout}}>
             {children}
         </AdminContext.Provider>
     )

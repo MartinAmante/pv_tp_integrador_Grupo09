@@ -18,6 +18,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 import { useState, useEffect,useContext } from "react";
 import { obtenerClientes } from "../services/ServiceClientes";
@@ -69,7 +71,7 @@ const ListaCliente = () => {
     const agregarNuevoCliente = (nuevoCliente) => {
         setClientes([...clientes, nuevoCliente]);
     };
-    
+
     const clientesFiltrados = clientes.filter((cliente) => {
         
         if(cliente.id === idBorrar){
@@ -98,7 +100,10 @@ const ListaCliente = () => {
         <>
          <Header  />
          <Nav />
-            <h1>Lista de Clientes</h1>
+         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+                  <h1>Lista de Clientes</h1>
+                </Typography>
+  
 
             <TextField 
                 label="Buscar por apellido o ciudad" 
@@ -163,10 +168,15 @@ const ListaCliente = () => {
                 </Table>
             </TableContainer>
              <>
-         <button onClick={volverInicio}>
-            Volver al inicio
-         </button>
+         
          <FormularioCliente agregarCliente={agregarNuevoCliente} />
+         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, mb: 3 }}>
+            <Button
+            variant="contained" 
+            onClick={volverInicio}>
+                Volver al inicio
+           </Button>
+           </Box>
          <Footer />
          </>
         </>

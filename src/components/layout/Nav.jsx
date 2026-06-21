@@ -1,12 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
-// Importamos componentes de navegación y botones de MUI
 import { Box, Button, ButtonGroup } from "@mui/material";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 
 const Nav = () => {
     const navigate = useNavigate();
-    const location = useLocation(); // Nos sirve para saber en qué página estamos y pintar el botón activo
+    const location = useLocation(); 
 
     return (
         <Box 
@@ -18,7 +17,6 @@ const Nav = () => {
                 px: 2 
             }}
         >
-            {/* Un grupo de botones pegados y estilizados de forma nativa por MUI */}
             <ButtonGroup variant="outlined" aria-label="Navegación principal" size="large">
                 <Button 
                     onClick={() => navigate("/dashboard")}

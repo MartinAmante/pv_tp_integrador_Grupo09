@@ -6,7 +6,7 @@ import Footer from "../components/layout/Footer";
 import VerUsuario from "./VerUsurio.jsx";
 import { AdminContext } from "../context/AdminContext.jsx";
 import {BorrarContext} from "../context/BorrarContext.jsx";
-import {eliminarClienteService} from "../services/ServiceClientes.jsx";
+import {eliminarClienteService} from "../services/ServiceClientes.js";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -74,7 +74,7 @@ const DetalleCliente = () => {
         }
         </div>
         <Button 
-            variant="contained" 
+            variant="outlined" 
             onClick={volverClientes}>
                 Volver al listado de clientes
         </Button>
