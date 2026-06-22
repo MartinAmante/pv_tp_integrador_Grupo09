@@ -1,11 +1,14 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AdminContext } from "../../context/AdminContext";
 import { AppBar, Toolbar, Typography, Box, Chip, Button } from "@mui/material";
+import { useAdminAutorizaciones } from "../../hooks/useAdminAutorizaciones";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Header = () => {
-    const { admin, logout } = useContext(AdminContext);
+    const { admin, logout } = useAdminAutorizaciones();
+    const navigate = useNavigate();
 
     const manejarLogout = () => {
         logout(); 
