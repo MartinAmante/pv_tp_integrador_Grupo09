@@ -5,7 +5,7 @@ import ListaCliente from "../views/ListaCliente";
 import Login from "../views/Login";
 import ProtectedRoute from "./ProtectedRoute";
 
-const Rutas = createBrowserRouter([
+const Rutas = createBrowserRouter([ //creacion de un router
     {
         path: "/",
         element: <Login />
@@ -17,7 +17,7 @@ const Rutas = createBrowserRouter([
     {
         path: "/dashboard",
         element: (
-            <ProtectedRoute>
+            <ProtectedRoute> {/* primero se ejecuta esto, despues childen*/}
                 <Dashboard />
             </ProtectedRoute>
         )
