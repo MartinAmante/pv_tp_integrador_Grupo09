@@ -1,9 +1,6 @@
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const API = "https://fakestoreapi.com/users";
-
-
 
 export const obtenerClientes = async () => {
 
@@ -46,7 +43,4 @@ export const agregarClienteService = async (nuevoCliente) => {
         } catch (error) {
              console.error("Error en agregarClienteService:", error);
          throw error;}     
-};
-export const ayuda = () => {
-    const actualizacion = useParams();
 };
