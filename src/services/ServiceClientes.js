@@ -1,31 +1,31 @@
+import axios from "axios";
+
 const API = "https://fakestoreapi.com/users";
 
 export const obtenerClientes = async () => {
 
-    const respuesta = await fetch(
-        API
-    );
+    try{
+        const respuesta = await axios.get(API);
+        return respuesta.data;
 
-    if (!respuesta.ok) {
+    }catch(error){
         throw new Error("Error al obtener clientes");
+
     }
 
-    const datos = await respuesta.json();
-
-    return datos;
 };
+
+
 
 export const eliminarClienteService = async (id) => {
     try {
-        const respuesta = await fetch(`${API}/${id}`, {
-            method: "DELETE" 
-        });
-        
-        if (!respuesta.ok) {
+        try{
+        const respuesta = await axios.delete(`${API}/${id}`);
+        return respuesta.data;
+        } catch(error){
             throw new Error("Error al intentar eliminar el cliente");
         }
-        
-        return await respuesta.json(); 
+   
     } catch (error) {
         console.error("Error en eliminarClienteService:", error);
         throw error;
@@ -33,22 +33,14 @@ export const eliminarClienteService = async (id) => {
 };
 
 export const agregarClienteService = async (nuevoCliente) => {
+ 
     try {
-        const respuesta = await fetch(API, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(nuevoCliente)
-        });
-
-        if (!respuesta.ok && respuesta.status !== 201) {
-            throw new Error("Error al intentar agregar el cliente");
-        }
-
-        return await respuesta.json();
-    } catch (error) {
-        console.error("Error en agregarClienteService:", error);
-        throw error;
-    }
+        
+            const respuesta = await axios.post(API, nuevoCliente )
+            
+         return respuesta.data; 
+       
+        } catch (error) {
+             console.error("Error en agregarClienteService:", error);
+         throw error;}     
 };

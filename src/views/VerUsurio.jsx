@@ -45,7 +45,7 @@ const VerUsuario = ({ usr }) => {
                     Usuario: {username}
                 </Typography>
 
-                <Typography>
+                <Typography type = "password">
                     Contraseña: {password}
                 </Typography>
 

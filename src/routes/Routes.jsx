@@ -6,7 +6,7 @@ import Login from "../views/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import PageError from "../views/PageError";
 
-const Rutas = createBrowserRouter([
+const Rutas = createBrowserRouter([ 
     {
         path: "/",
         element: <Login />
@@ -18,7 +18,7 @@ const Rutas = createBrowserRouter([
     {
         path: "/dashboard",
         element: (
-            <ProtectedRoute>
+            <ProtectedRoute> 
                 <Dashboard />
             </ProtectedRoute>
         )
