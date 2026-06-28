@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const API = "https://fakestoreapi.com/users";
 
@@ -48,5 +48,5 @@ export const agregarClienteService = async (nuevoCliente) => {
          throw error;}     
 };
 export const ayuda = () => {
-    const [ayudado,setAyudado]=useState({});
+    const actualizacion = useParams();
 };
