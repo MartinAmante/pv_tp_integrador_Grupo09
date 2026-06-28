@@ -1,8 +1,12 @@
+import axios from "axios";
+
 const API = "https://fakestoreapi.com/users";
 
-export const obtenerClientes = async () => {
+/*
+lo que iba antes
 
-    const respuesta = await fetch(
+ 
+  const respuesta = await fetch(
         API
     );
 
@@ -13,11 +17,27 @@ export const obtenerClientes = async () => {
     const datos = await respuesta.json();
 
     return datos;
+*/
+
+export const obtenerClientes = async () => {
+
+    try{
+        const respuesta = await axios.get(API);
+        return respuesta.data;
+
+    }catch(error){
+        throw new Error("Error al obtener clientes");
+
+    }
+
 };
 
-export const eliminarClienteService = async (id) => {
-    try {
-        const respuesta = await fetch(`${API}/${id}`, {
+
+
+/*
+lo que iba antes
+
+ const respuesta = await fetch(`${API}/${id}`, {
             method: "DELETE" 
         });
         
@@ -26,6 +46,17 @@ export const eliminarClienteService = async (id) => {
         }
         
         return await respuesta.json(); 
+   
+*/
+export const eliminarClienteService = async (id) => {
+    try {
+        try{
+        const respuesta = await axios.delete(`${API}/${id}`);
+        return respuesta.data;
+        } catch(error){
+            throw new Error("Error al intentar eliminar el cliente");
+        }
+   
     } catch (error) {
         console.error("Error en eliminarClienteService:", error);
         throw error;
@@ -33,7 +64,22 @@ export const eliminarClienteService = async (id) => {
 };
 
 export const agregarClienteService = async (nuevoCliente) => {
-    try {
+ 
+    try { 
+        
+            const respuesta = await axios.post(API, nuevoCliente )
+            
+         return respuesta.data; 
+       
+        } catch (error) {
+             console.error("Error en agregarClienteService:", error);
+         throw error; }     
+};
+
+/*
+lo que iba antes
+
+try {
         const respuesta = await fetch(API, {
             method: "POST",
             headers: {
@@ -47,8 +93,11 @@ export const agregarClienteService = async (nuevoCliente) => {
         }
 
         return await respuesta.json();
+
+
     } catch (error) {
         console.error("Error en agregarClienteService:", error);
         throw error;
     }
-};
+
+*/
