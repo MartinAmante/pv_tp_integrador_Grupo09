@@ -4,6 +4,7 @@ import DetalleCliente from "../views/DetalleCliente";
 import ListaCliente from "../views/ListaCliente";
 import Login from "../views/Login";
 import ProtectedRoute from "./ProtectedRoute";
+import PageError from "../views/PageError";
 
 const Rutas = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const Rutas = createBrowserRouter([
                 <DetalleCliente />
             </ProtectedRoute>
         )
+    },
+    {
+        path: "*",
+        element: <PageError />
     }
 ]);
 
