@@ -1,18 +1,17 @@
 import { createContext, useState, useEffect } from "react";
 
 export const AdminContext = createContext();
-//local storage= memoria de la pagina web
 export const AdminProvider = ({children}) => {
 
-    const [admin, setAdmin] = useState(() => { //el estado almacena lo que devuelve la funcion
-    const stored = localStorage.getItem("admin") //extrae "admin" de la memoria
-    return stored ? JSON.parse(stored) : null; // operador ternario
+    const [admin, setAdmin] = useState(() => { 
+    const stored = localStorage.getItem("admin")
+    return stored ? JSON.parse(stored) : null; 
 });
 useEffect(() => {
     if (admin) {
-        localStorage.setItem("admin", JSON.stringify(admin));//guarda admin, convertido en texto
+        localStorage.setItem("admin", JSON.stringify(admin));
     } else {
-        localStorage.removeItem("admin");//borra la variable admin
+        localStorage.removeItem("admin");
     }
 }, [admin]);
 
