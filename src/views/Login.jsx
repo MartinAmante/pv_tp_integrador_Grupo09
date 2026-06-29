@@ -25,15 +25,36 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [sector, setSector] = useState("");
     const [error, setError] = useState("");
+    const [errorEntrada, setErrorEntrada] = useState({});
     const [loading, setLoading] = useState(false);
     const {login} = useContext(AdminContext);
 
+
+    const validarFormulario = () => {
+        const nuevosErrores = {};
+        const emailValidacion = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!nombre) {
+            nuevosErrores.nombre = "El email es obligatorio";
+        } else if (!emailValidacion.test(nombre)) {
+            nuevosErrores.nombre = "El email no es válido";
+        }
+
+        if (!password) {
+            nuevosErrores.password = "La contraseña es obligatoria";
+        }
+
+        setErrorEntrada(nuevosErrores);
+        return Object.keys(nuevosErrores).length === 0;
+    };
 
     const manejarLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError("");
-
+        if (!validarFormulario()) {
+            setLoading(false);
+            return;
+        }
         try {
             const respuesta = await ServiceAutorizaciones.loginService(nombre, password, sector); 
             login(respuesta);  
@@ -66,7 +87,9 @@ const Login = () => {
                         fullWidth
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
-                        required
+                        error={!!errorEntrada.nombre}
+                        helperText={errorEntrada.nombre}
+                        
                     />
                     <TextField
                         label="Contraseña"
@@ -75,10 +98,12 @@ const Login = () => {
                         fullWidth
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
+                        error={!!errorEntrada.password}
+                        helperText={errorEntrada.password}
+                        
                     />
 
-                    <FormControl fullWidth required>
+                    <FormControl fullWidth error={!!errorEntrada.sector}>
                         <InputLabel id="sector-label">Cargo</InputLabel>
                         <Select
                             labelId="sector-label"
