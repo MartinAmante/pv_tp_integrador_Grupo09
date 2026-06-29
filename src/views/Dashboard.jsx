@@ -18,13 +18,6 @@ const Dashboard = () => {
         navigate("/clientes");
     };
 
-    const cerrarSesion = () => {
-        setAdmin(null);
-        setIdBorrar(null)
-        navigate("/login");
-
-    };
-
     console.log("Render Dashboard");
 
     return (
@@ -61,18 +54,6 @@ const Dashboard = () => {
                             sx={{ fontWeight: 'bold' }}
                         >
                             Ver Clientes
-                        </Button>
-
-                        {/* Botón secundario estilizado como Link para volver al Login */}
-                        <Button 
-                            component={Link} 
-                            to="/login" 
-                            variant="outlined" 
-                            color="secondary"
-                            startIcon={<ArrowBackIcon />}
-                            sx={{ fontWeight: 'bold' }}
-                        >
-                            Volver al Login
                         </Button>
                     </Box>
                 </Box>
