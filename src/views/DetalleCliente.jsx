@@ -4,11 +4,13 @@ import Header from "../components/layout/Header";
 import Nav from "../components/layout/Nav";
 import Footer from "../components/layout/Footer";
 import VerUsuario from "./VerUsurio.jsx";
+import PageError from "./PageError.jsx";
 import { AdminContext } from "../context/AdminContext.jsx";
 import {BorrarContext} from "../context/BorrarContext.jsx";
-import {eliminarClienteService} from "../services/ServiceClientes.js";
+import {eliminarClienteService, obtenerClientePorId} from "../services/ServiceClientes.js";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const DetalleCliente = () => {
     const navigate = useNavigate();
@@ -27,52 +29,62 @@ const DetalleCliente = () => {
         }
     }
     const {id} = useParams();
-    const [usuario,setUsuario] =useState({});
+    const [usuario,setUsuario] =useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     const { admin } = useContext(AdminContext);
     const { setIdBorrar} = useContext(BorrarContext);
 
     
-    useEffect (() =>{
+    /*useEffect (() =>{
         fetch("https://fakestoreapi.com/users/" + id) // :id variable de un campo en el arreglo dentro del link
         .then(respuesta =>{return respuesta.json()})
         .then(datos => {setUsuario(datos);});
-    },[]);
+    },[]);*/
+    
+    useEffect(() => {
+    const cargarCliente = async () => {
+        try {
+            const datos = await obtenerClientePorId(id);
+            setUsuario(datos);
+        } catch (error) {
+            console.error(error);
+            setUsuario(null);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    cargarCliente();
+    
+}, [id]);
+
+if (loading) {
+    return <div>Cargando...</div>;
+}
+if (!usuario) {
+    return <PageError />;
+}
 
     return (
     <>
-        <Header nombre="Matias"
-                sector="Soporte"/>
+        <Header />
 
         <Nav />
 
         <h2>DETALLE CLIENTE</h2>
 
-        <div>  
-        {
-            !usuario.name
-               ? <div> cargando... </div>
-            
-                :(<div>
-                    <VerUsuario usr= {usuario} />
-                    <div>
-                    {
-                        admin?.sector !== "Soporte"
-                       ?<Button 
-                            onClick={()=>borrarClientes(usuario.id)}
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}  >
-                            Borrar cliente
-                        </Button>
-                        : null
-
-                    }
-                    </div>
-                </div>)
-
-        }
-        </div>
+        <VerUsuario usr= {usuario} />
+            {
+                admin?.sector !== "Soporte" && (
+                    <Button 
+                        onClick={()=>borrarClientes(usuario.id)}
+                        variant="outlined"
+                        startIcon={<DeleteIcon />}  >
+                        Borrar cliente
+                    </Button>
+                )}
         <Button 
             variant="outlined" 
             onClick={volverClientes}>
@@ -81,30 +93,7 @@ const DetalleCliente = () => {
         
         <Footer />
     </>
-    )
-}
+    );
+};
 
 export default DetalleCliente;
-
-/*  Fernando: Fichas Dinámicas y Permisos (Módulo D)
-•	Desarrollar el componente <DetalleCliente/> capturando el
- parámetro de la URL con useParams para hacer el segundo fetch a /users/:id.
- 
-•	Desestructurar la respuesta y renderizar en pantalla los objetos anidados 
-(dirección completa y credenciales). 
-
-
-•	Consumir el contexto global para aplicar la lógica de permisos: dejar la vista en 
-  modo lectura si el usuario es de "Soporte", o habilitar el botón de eliminación 
-  (petición DELETE) si pertenece a "Gerencia".
-
-    Lógica de Permisos Globales (Control por Contexto):
-     Si el Administrador logueado en el Contexto pertenece al sector "Soporte",
-    en esta ficha solo podrá visualizar los datos del cliente.
-     Si el Administrador pertenece al sector "Gerencia", la interfaz habilitará de
-    forma exclusiva un botón rojo de "Eliminar Cliente de la Base de Datos",
-    el cual simulará una petición HTTP de tipo DELETE hacia la API.
-
-
-  
-  */  

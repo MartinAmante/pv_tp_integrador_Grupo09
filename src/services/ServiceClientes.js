@@ -44,3 +44,12 @@ export const agregarClienteService = async (nuevoCliente) => {
              console.error("Error en agregarClienteService:", error);
          throw error;}     
 };
+
+export const obtenerClientePorId = async (id) => {
+    try {
+        const respuesta = await axios.get(`${API}/${id}`);
+        return respuesta.data;
+    } catch (error) {
+        throw new Error("Error al obtener el cliente");
+    }
+};
